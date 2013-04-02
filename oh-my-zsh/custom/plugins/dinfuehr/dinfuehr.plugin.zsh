@@ -8,11 +8,13 @@ compdef _h h
 
 alias casmi=~/projects/casmi/build/casmi
 alias casmintr=~/projects/casm2cpp/casmintr
-alias subl=sublime
 
 if [[ $(uname) == Linux ]]; then
   alias pbcopy='xclip -selection clipboard'
   alias pbpaste='xclip -selection clipboard -o'
+  alias subl=sublime
+else
+  alias subl=/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl
 fi
 
 unsetopt correct_all
