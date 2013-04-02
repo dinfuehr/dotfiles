@@ -10,10 +10,16 @@ alias casmi=~/projects/casmi/build/casmi
 alias casmintr=~/projects/casm2cpp/casmintr
 alias subl=sublime
 
+unsetopt correct_all
+
 function server() {
   local port="${1:-8000}"
   open "http://localhost:${port}"
   python -m SimpleHTTPServer "$port"
+}
+
+function svl() {
+  ssh root@sv-langenrohr.at
 }
 
 function ffp() {
