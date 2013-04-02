@@ -3,12 +3,13 @@ require 'erb'
 
 desc "install the dot files into user's home directory"
 task :install do
+  replace_all = false
+
   install_oh_my_zsh
   switch_to_zsh
-  replace_all = false
+  link_sublime_user
   files = Dir['*'] - %w[Rakefile README.md oh-my-zsh]
   files << "oh-my-zsh/custom/plugins/dinfuehr"
-  #files << "oh-my-zsh/custom/rbates.zsh-theme"
   files.each do |file|
     system %Q{mkdir -p "$HOME/.#{File.dirname(file)}"} if file =~ /\//
     if File.exist?(File.join(ENV['HOME'], ".#{file.sub(/\.erb$/, '')}"))
@@ -78,6 +79,44 @@ def switch_to_zsh
     else
       puts "skipping zsh"
     end
+  end
+end
+
+def link_sublime_user
+  if linux?
+    src = "#{ENV['HOME']}/.config/sublime-text-2/Packages/User"
+  else
+    src = "#{ENV['HOME']}/Library/Application Support/Sublime Text 2/Packages/User"
+  end
+
+  dest = "#{ENV['HOME']}/Dropbox/sublime-user"
+  cmd = %Q{ln -s "#{dest}" "#{src}"}
+
+  if !File.directory?( dest )
+    puts "missing #{dest}"
+  end
+
+  if File.exists?( src )
+    if File.identical? src, dest
+      puts "identical #{dest}"
+    else
+      print "link #{src} to #{dest}? [ynaq] "
+      case $stdin.gets.chomp
+      when 'a'
+        replace_all = true
+        system "rm -rf #{src}"
+        system cmd
+      when 'y'
+        system "rm -rf #{src}"
+        system cmd
+      when 'q'
+        exit
+      else
+        puts "skipping #{src}"
+      end
+    end
+  else
+    system cmd
   end
 end
 
