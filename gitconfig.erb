@@ -1,0 +1,34 @@
+[user]
+	name = Dominik Inführ
+  email = dominik.infuehr@gmail.com
+
+[alias]
+  undo = reset --hard
+  st = status
+  ci = commit -v
+  co = checkout
+  prune-all = !git remote | xargs -n 1 git remote prune
+  record = !git add -p && git ci
+  amend-record = !git add -p && git ci --amend
+  update-master = !git checkout master && git pull -r
+  lol = log --graph --decorate --pretty=oneline --abbrev-commit
+  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+  hist = log --graph --decorate --pretty=format:\"%h %ad | %s%d [%an]\" --abbrev-commit --date=short
+
+[color]
+  ui = true
+[core]
+	editor = /usr/bin/vim
+[push]
+	default = current
+;[merge]
+	;tool = diffmerge
+;[diff]
+	;tool = diffmerge
+;[difftool "diffmerge"]
+	;cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
+;[mergetool "diffmerge"]
+	;cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
+	;trustExitCode = true
+;[mergetool]
+	;keepBackup = false
