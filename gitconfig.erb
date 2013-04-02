@@ -21,14 +21,17 @@
 	editor = /usr/bin/vim
 [push]
 	default = current
-;[merge]
-	;tool = diffmerge
-;[diff]
-	;tool = diffmerge
-;[difftool "diffmerge"]
-	;cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
-;[mergetool "diffmerge"]
-	;cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
-	;trustExitCode = true
-;[mergetool]
-	;keepBackup = false
+
+<% if system 'which diffmerge' %>
+[merge]
+	tool = diffmerge
+[diff]
+	tool = diffmerge
+[difftool "diffmerge"]
+	cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
+[mergetool "diffmerge"]
+	cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
+	trustExitCode = true
+[mergetool]
+	keepBackup = false
+<% end %>

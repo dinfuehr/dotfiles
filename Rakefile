@@ -7,7 +7,7 @@ task :install do
   switch_to_zsh
   replace_all = false
   files = Dir['*'] - %w[Rakefile README.rdoc LICENSE oh-my-zsh]
-  #files << "oh-my-zsh/custom/plugins/rbates"
+  files << "oh-my-zsh/custom/plugins/dinfuehr"
   #files << "oh-my-zsh/custom/rbates.zsh-theme"
   files.each do |file|
     system %Q{mkdir -p "$HOME/.#{File.dirname(file)}"} if file =~ /\//
@@ -39,6 +39,14 @@ end
 def replace_file(file)
   system %Q{rm -rf "$HOME/.#{file.sub(/\.erb$/, '')}"}
   link_file(file)
+end
+
+def linux?
+  `uname` =~ /Linux/
+end
+
+def mac?
+  `uname` =~ /Darwin/
 end
 
 def link_file(file)
