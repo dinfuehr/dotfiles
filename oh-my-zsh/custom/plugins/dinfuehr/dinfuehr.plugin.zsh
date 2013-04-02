@@ -14,7 +14,7 @@ if [[ $(uname) == Linux ]]; then
   alias pbpaste='xclip -selection clipboard -o'
   alias subl=sublime
 else
-  alias subl=/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl
+  alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 fi
 
 unsetopt correct_all
