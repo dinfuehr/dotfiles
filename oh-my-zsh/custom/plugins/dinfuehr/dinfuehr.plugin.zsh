@@ -10,6 +10,11 @@ alias casmi=~/projects/casmi/build/casmi
 alias casmintr=~/projects/casm2cpp/casmintr
 alias subl=sublime
 
+if [[ $(uname) == Linux ]]; then
+  alias pbcopy='xclip -selection clipboard'
+  alias pbpaste='xclip -selection clipboard -o'
+fi
+
 unsetopt correct_all
 
 function server() {
