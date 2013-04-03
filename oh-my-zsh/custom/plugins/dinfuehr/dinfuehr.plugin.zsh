@@ -6,8 +6,8 @@ h() { cd ~/$1; }
 _h() { _files -W ~/ -/; }
 compdef _h h
 
-alias casmi=~/projects/casmi/build/casmi
-alias casmintr=~/projects/casm2cpp/casmintr
+alias casmi=~/code/casmi/build/casmi
+alias casmintr=~/code/casm2cpp/casmintr
 
 if [[ $(uname) == Linux ]]; then
   alias pbcopy='xclip -selection clipboard'
