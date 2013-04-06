@@ -8,6 +8,7 @@ compdef _h h
 
 alias casmi=~/code/casmi/build/casmi
 alias casmintr=~/code/casm2cpp/casmintr
+alias carma=~/Dropbox/tu-wien/bachelorarbeit/carma/carma
 
 if [[ $(uname) == Linux ]]; then
   alias pbcopy='xclip -selection clipboard'
@@ -16,8 +17,6 @@ if [[ $(uname) == Linux ]]; then
 else
   alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 fi
-
-unsetopt correct_all
 
 function server() {
   local port="${1:-8000}"
