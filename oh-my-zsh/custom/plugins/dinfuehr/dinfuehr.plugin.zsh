@@ -13,9 +13,9 @@ alias carma=~/Dropbox/tu-wien/bachelorarbeit/carma/carma
 if [[ $(uname) == Linux ]]; then
   alias pbcopy='xclip -selection clipboard'
   alias pbpaste='xclip -selection clipboard -o'
-  alias subl=sublime
+  #alias subl=sublime
 else
-  alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
+  #alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 fi
 
 function server() {
