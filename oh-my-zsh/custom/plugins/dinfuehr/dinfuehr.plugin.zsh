@@ -17,6 +17,3 @@ function server() {
   python -m SimpleHTTPServer "$port"
 }
 
-function ffp() {
-  ssh ffp0925697@g0.complang.tuwien.ac.at
-}
