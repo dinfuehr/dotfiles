@@ -11,3 +11,11 @@ if [ -d ~/.rvm ]; then
   PATH=$PATH:$HOME/.rvm/bin
   source ~/.rvm/scripts/rvm
 fi
+
+ZSH_LOCAL=~/.zshrc_local
+
+if [ -e $ZSH_LOCAL ]; then
+  source $ZSH_LOCAL
+else
+  touch $ZSH_LOCAL
+fi
