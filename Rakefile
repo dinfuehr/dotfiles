@@ -67,6 +67,13 @@ def file_content( file )
   end
 end
 
+def path_tool( cmd )
+  path = `which #{cmd}`.strip
+  return nil unless $?.exitstatus == 0
+
+  path
+end
+
 def save_file( file, content )
   File.open( file_name( file ), 'w' ) do |f|
     f.write content

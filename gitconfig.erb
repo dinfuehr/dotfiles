@@ -17,12 +17,14 @@
 
 [color]
   ui = true
+<% vim = path_tool 'vim'; if vim %>
 [core]
 	editor = /usr/bin/vim
+<% end %>
 [push]
 	default = current
 
-<% if system 'which diffmerge' %>
+<% diffmerge = path_tool 'diffmerge'; if diffmerge %>
 [merge]
 	tool = diffmerge
 [diff]
