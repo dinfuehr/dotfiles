@@ -1,72 +1,84 @@
 require 'rake'
 require 'erb'
+require 'fileutils'
 
 desc "install the dot files into user's home directory"
 task :install do
-  replace_all = false
-
+  # Install oh my zsh
   install_oh_my_zsh
+
+  # switch to zsh
   switch_to_zsh
+
+  # link sublime user-directory
   link_sublime_user
-  files = Dir['*'] - %w[Rakefile README.md oh-my-zsh]
-  files << "oh-my-zsh/custom/plugins/dinfuehr"
-  files.each do |file|
-    system %Q{mkdir -p "$HOME/.#{File.dirname(file)}"} if file =~ /\//
-    if File.exist?(File.join(ENV['HOME'], ".#{file.sub(/\.erb$/, '')}"))
-      if File.identical? file, File.join(ENV['HOME'], ".#{file.sub(/\.erb$/, '')}")
-        puts "identical ~/.#{file.sub(/\.erb$/, '')}"
-      elsif replace_all
-        replace_file(file)
-      else
-        print "overwrite ~/.#{file.sub(/\.erb$/, '')}? [ynaq] "
+
+  path = 'oh-my-zsh/custom/plugins/dinfuehr'
+
+  files = [
+    [ 'zshrc', '~/.zshrc' ],
+    [ 'gitconfig.erb', '~/.gitconfig' ],
+    [ 'gitignore', '~/.gitignore' ],
+    [ 'ackrc', '~/.ackrc' ],
+    [ 'irbrc', '~/.irbrc' ],
+    [ "#{path}/dinfuehr.plugin.zsh", "~/.#{path}/dinfuehr.plugin.zsh" ]
+  ]
+
+  files.each do |f|
+    install_file( f[ 0 ], f[ 1 ], f[ 2 ] || {} )
+  end
+end
+
+def install_file( ifile, ofile, opts={} )
+  icontent = file_content( ifile )
+
+  if File.exists?( file_name( ofile ) )
+    ocontent = file_content( ofile )
+
+    if icontent == ocontent
+      puts "identical #{ofile}"
+
+    else
+        print "overwrite #{ofile}? [ynq] "
         case $stdin.gets.chomp
-        when 'a'
-          replace_all = true
-          replace_file(file)
         when 'y'
-          replace_file(file)
+          save_file( ofile, icontent )
         when 'q'
           exit
         else
-          puts "skipping ~/.#{file.sub(/\.erb$/, '')}"
+          puts "skipping #{ofile}"
         end
-      end
-    else
-      link_file(file)
+
     end
-  end
-end
 
-def replace_file(file)
-  system %Q{rm -rf "$HOME/.#{file.sub(/\.erb$/, '')}"}
-  link_file(file)
-end
-
-def linux?
-  `uname` =~ /Linux/
-end
-
-def mac?
-  `uname` =~ /Darwin/
-end
-
-def link_file(file)
-  if file =~ /.erb$/
-    puts "generating ~/.#{file.sub(/\.erb$/, '')}"
-    File.open(File.join(ENV['HOME'], ".#{file.sub(/\.erb$/, '')}"), 'w') do |new_file|
-      new_file.write ERB.new(File.read(file)).result(binding)
-    end
-  elsif file =~ /zshrc$/ # copy zshrc instead of link
-    puts "copying ~/.#{file}"
-    system %Q{cp "$PWD/#{file}" "$HOME/.#{file}"}
   else
-    puts "linking ~/.#{file}"
-    system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
+    puts "create #{ofile}"
+    save_file( ofile, icontent )
   end
+end
+
+def file_content( file )
+  content = IO.read( file_name( file ) )
+
+  if file.end_with?( '.erb' )
+    ERB.new( content ).result( binding )
+  else
+    content
+  end
+end
+
+def save_file( file, content )
+  File.open( file_name( file ), 'w' ) do |f|
+    f.write content
+  end
+end
+
+def file_name( file )
+  file.gsub( '~', ENV[ 'HOME' ] )
 end
 
 def switch_to_zsh
-  if ENV["SHELL"] =~ /zsh/
+  if ENV[ 'SHELL' ] =~ /zsh/
     puts "using zsh"
   else
     print "switch to zsh? (recommended) [ynq] "
@@ -84,16 +96,17 @@ end
 
 def link_sublime_user
   if linux?
-    src = "#{ENV['HOME']}/.config/sublime-text-2/Packages/User"
+    src = "#{ENV[ 'HOME' ]}/.config/sublime-text-2/Packages/User"
   else
-    src = "#{ENV['HOME']}/Library/Application Support/Sublime Text 2/Packages/User"
+    src = "#{ENV[ 'HOME' ]}/Library/Application Support/Sublime Text 2/Packages/User"
   end
 
-  dest = "#{ENV['HOME']}/Dropbox/sublime-user"
+  dest = "#{ENV[ 'HOME' ]}/Dropbox/sublime-user"
   cmd = %Q{ln -s "#{dest}" "#{src}"}
 
-  if !File.directory?( dest )
-    puts "missing #{dest}"
+  unless File.directory?( dest )
+    puts "missing #{dest}, install dropbox"
+    return
   end
 
   if File.exists?( src )
@@ -102,10 +115,6 @@ def link_sublime_user
     else
       print "link #{src} to #{dest}? [ynaq] "
       case $stdin.gets.chomp
-      when 'a'
-        replace_all = true
-        system "rm -rf #{src}"
-        system cmd
       when 'y'
         system "rm -rf #{src}"
         system cmd
@@ -120,8 +129,16 @@ def link_sublime_user
   end
 end
 
+def linux?
+  `uname`.strip == 'Linux'
+end
+
+def mac?
+  `uname`.strip == 'Darwin'
+end
+
 def install_oh_my_zsh
-  if File.exist?(File.join(ENV['HOME'], ".oh-my-zsh"))
+  if File.directory?( file_name( '~/.oh-my-zsh' ) )
     puts "found ~/.oh-my-zsh"
   else
     print "install oh-my-zsh? [ynq] "
