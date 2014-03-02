@@ -41,7 +41,7 @@ def check_installed( tool )
 
   if p == nil
     puts "#{tool} not installed"
-    exit
+    exit 1
   end
 end
 
@@ -60,7 +60,7 @@ def install_file( ifile, ofile, opts={} )
         when 'y'
           save_file( ofile, icontent )
         when 'q'
-          exit
+          exit 1
         else
           puts "skipping #{ofile}"
         end
@@ -110,7 +110,7 @@ def switch_to_zsh
       puts "switching to zsh"
       system %Q{chsh -s `which zsh`}
     when 'q'
-      exit
+      exit 1
     else
       puts "skipping zsh"
     end
@@ -142,7 +142,7 @@ def link_sublime_user
         system "rm -rf #{src}"
         system cmd
       when 'q'
-        exit
+        exit 1
       else
         puts "skipping #{src}"
       end
@@ -170,7 +170,7 @@ def install_oh_my_zsh
       puts "installing oh-my-zsh"
       system %Q{git clone https://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"}
     when 'q'
-      exit
+      exit 1
     else
       puts "skipping oh-my-zsh, you will need to change ~/.zshrc"
     end
