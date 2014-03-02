@@ -19,7 +19,7 @@
   ui = true
 <% vim = path_tool 'vim'; if vim %>
 [core]
-	editor = /usr/bin/vim
+	editor = <%= vim %>
 <% end %>
 [push]
 	default = current
