@@ -4,6 +4,8 @@ require 'fileutils'
 
 desc "install the dot files into user's home directory"
 task :install do
+  check_requirements
+
   # Install oh my zsh
   install_oh_my_zsh
 
@@ -26,6 +28,20 @@ task :install do
 
   files.each do |f|
     install_file( f[ 0 ], f[ 1 ], f[ 2 ] || {} )
+  end
+end
+
+def check_requirements
+  check_installed 'zsh'
+  check_installed 'git'
+end
+
+def check_installed( tool )
+  p = path_tool tool
+
+  if p == nil
+    puts "#{tool} not installed"
+    exit
   end
 end
 

@@ -2,12 +2,7 @@
 
 ## Requirements
 ```sh
-# install zsh, git, curl
-
-chsh -s /bin/zsh
-
-# Logout/Login
-curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+# install zsh, git
 
 ```
 
