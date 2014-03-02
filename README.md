@@ -1,10 +1,7 @@
 # dinfuehr dotfiles
 
 ## Requirements
-```sh
-# install zsh, git
-
-```
+You need `zsh` and `git`. These tools are required by the installation script.
 
 ## Installation
 
