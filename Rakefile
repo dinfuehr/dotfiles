@@ -13,7 +13,7 @@ task :install do
   switch_to_zsh
 
   # link sublime user-directory
-  link_sublime_user
+  # link_sublime_user
 
   path = 'oh-my-zsh/custom/plugins/dinfuehr'
 
@@ -23,6 +23,7 @@ task :install do
     [ 'gitignore', '~/.gitignore' ],
     [ 'ackrc', '~/.ackrc' ],
     [ 'irbrc', '~/.irbrc' ],
+    [ 'hgrc', '~/.hgrc' ],
     [ "#{path}/dinfuehr.plugin.zsh", "~/.#{path}/dinfuehr.plugin.zsh" ]
   ]
 

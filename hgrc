@@ -1,0 +1,26 @@
+[ui]
+username = Dominik Inführ <dominik.infuehr@gmail.com>
+editor = vim
+
+[color]
+status.modified = magenta bold
+status.added = green bold
+status.removed = red bold
+status.deleted = cyan bold
+status.unknown = blue bold
+status.ignored = black bold
+
+[extensions]
+color=
+progress=
+pager=
+
+[pager]
+pager = LESS='FSRX' less
+ignore = version, help, update, serve, record
+
+[diff]
+git = True
+
+[alias]
+pull = pull --rebase
