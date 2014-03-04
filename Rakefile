@@ -13,7 +13,7 @@ task :install do
   switch_to_zsh
 
   # link sublime user-directory
-  # link_sublime_user
+  link_sublime_user
 
   path = 'oh-my-zsh/custom/plugins/dinfuehr'
 
@@ -120,9 +120,9 @@ end
 
 def link_sublime_user
   if linux?
-    src = "#{ENV[ 'HOME' ]}/.config/sublime-text-2/Packages/User"
+    src = "#{ENV[ 'HOME' ]}/.config/sublime-text-3/Packages/User"
   else
-    src = "#{ENV[ 'HOME' ]}/Library/Application Support/Sublime Text 2/Packages/User"
+    src = "#{ENV[ 'HOME' ]}/Library/Application Support/Sublime Text 3/Packages/User"
   end
 
   dest = "#{ENV[ 'HOME' ]}/Dropbox/sublime-user"
