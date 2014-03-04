@@ -22,3 +22,6 @@ ZSH_LOCAL=~/.zshrc_local
 if [ -e $ZSH_LOCAL ]; then
   source $ZSH_LOCAL
 fi
+
+unset ZSH_LOCAL
+
