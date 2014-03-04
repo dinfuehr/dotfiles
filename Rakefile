@@ -149,7 +149,7 @@ def link_sublime_user
       end
     end
   else
-    system cmd
+    puts "sublime not installed, can not link user directory"
   end
 end
 
