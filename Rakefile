@@ -4,6 +4,7 @@ require 'fileutils'
 
 desc "install the dot files into user's home directory"
 task :install do
+  # check requirements, git and zsh
   check_requirements
 
   # Install oh my zsh
@@ -15,20 +16,27 @@ task :install do
   # link sublime user-directory
   link_sublime_user
 
-  path = 'oh-my-zsh/custom/plugins/dinfuehr'
-
   files = [
-    [ 'zshrc', '~/.zshrc' ],
+    [ 'zshrc', '~/.zshrc', { :link => false } ],
     [ 'gitconfig.erb', '~/.gitconfig' ],
     [ 'gitignore', '~/.gitignore' ],
     [ 'ackrc', '~/.ackrc' ],
     [ 'irbrc', '~/.irbrc' ],
     [ 'hgrc', '~/.hgrc' ],
-    [ "#{path}/dinfuehr.plugin.zsh", "~/.#{path}/dinfuehr.plugin.zsh" ]
+    [ 'dinfuehr.plugin.zsh', "~/.oh-my-zsh/custom/plugins/dinfuehr/dinfuehr.plugin.zsh" ]
   ]
 
   files.each do |f|
-    install_file( f[ 0 ], f[ 1 ], f[ 2 ] || {} )
+    opts = f[ 2 ] || {}
+
+    ifile = File.new( f[ 0 ] )
+    ofile = file_name( f[ 1 ] )
+
+    if opts[ :link ] == false || ifile.path.end_with?( '.erb' )
+      install_file( ifile, ofile )
+    else
+      install_link_file( ifile, ofile )
+    end
   end
 end
 
@@ -46,24 +54,62 @@ def check_installed( tool )
   end
 end
 
+def install_link_file( ifile, ofile, opts={} )
+  ifile = File.new( ifile )
+
+  if File.exists?( ofile )
+    path = File.readlink( ofile ) if File.symlink?( ofile )
+
+    if File.absolute_path( ifile ) == path
+      puts "identical symlink #{ofile}"
+
+    else
+      print "overwrite #{ofile} with symlink? [ynq] "
+      case $stdin.gets.chomp
+      when 'y'
+        link_file( ifile, ofile )
+      when 'q'
+        exit 1
+      else
+        puts "skipping #{ofile}"
+      end
+    end
+
+  else
+    puts "create symlink #{ofile}"
+    link_file( ifile, ofile )
+  end
+end
+
+def link_file( ifile, ofile )
+  begin
+    File.delete( ofile )
+  rescue => e
+
+  end
+
+  File.symlink( File.absolute_path( ifile ), ofile )
+end
+
 def install_file( ifile, ofile, opts={} )
   icontent = file_content( ifile )
 
-  if File.exists?( file_name( ofile ) )
+  if File.exists?( ofile )
+    ofile = File.new( ofile )
     ocontent = file_content( ofile )
 
     if icontent == ocontent
-      puts "identical #{ofile}"
+      puts "identical #{ofile.path}"
 
     else
-        print "overwrite #{ofile}? [ynq] "
+        print "overwrite #{ofile.path}? [ynq] "
         case $stdin.gets.chomp
         when 'y'
           save_file( ofile, icontent )
         when 'q'
           exit 1
         else
-          puts "skipping #{ofile}"
+          puts "skipping #{ofile.path}"
         end
 
     end
@@ -75,9 +121,9 @@ def install_file( ifile, ofile, opts={} )
 end
 
 def file_content( file )
-  content = IO.read( file_name( file ) )
+  content = IO.read( file )
 
-  if file.end_with?( '.erb' )
+  if file.path.end_with?( '.erb' )
     ERB.new( content ).result( binding )
   else
     content
@@ -92,7 +138,7 @@ def path_tool( cmd )
 end
 
 def save_file( file, content )
-  File.open( file_name( file ), 'w' ) do |f|
+  File.open( file, 'w' ) do |f|
     f.write content
   end
 end
