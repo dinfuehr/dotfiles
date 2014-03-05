@@ -84,12 +84,7 @@ def install_link_file( ifile, ofile, opts={} )
 end
 
 def link_file( ifile, ofile )
-  begin
-    File.delete( ofile )
-  rescue => e
-
-  end
-
+  File.delete( ofile ) if File.exists?( ofile )
   File.symlink( File.absolute_path( ifile ), ofile )
 end
 
@@ -167,37 +162,38 @@ def switch_to_zsh
 end
 
 def link_sublime_user
+  home = ENV[ 'HOME' ]
+
   if linux?
-    src = "#{ENV[ 'HOME' ]}/.config/sublime-text-3/Packages/User"
+    src = "#{home}/.config/sublime-text-3/Packages/User"
   else
-    src = "#{ENV[ 'HOME' ]}/Library/Application Support/Sublime Text 3/Packages/User"
+    src = "#{home}/Library/Application Support/Sublime Text 3/Packages/User"
   end
 
-  dest = "#{ENV[ 'HOME' ]}/Dropbox/sublime-user"
-  cmd = %Q{ln -s "#{dest}" "#{src}"}
+  dest = "#{home}/Dropbox/sublime-user"
 
   unless File.directory?( dest )
     puts "missing #{dest}, install dropbox"
     return
   end
 
-  if File.exists?( src )
-    if File.identical? src, dest
-      puts "identical #{dest}"
-    else
-      print "link #{src} to #{dest}? [ynaq] "
-      case $stdin.gets.chomp
-      when 'y'
-        system "rm -rf #{src}"
-        system cmd
-      when 'q'
-        exit 1
-      else
-        puts "skipping #{src}"
-      end
-    end
+  FileUtils.mkdir_p( File.dirname( src ) )
+  path = File.readlink( src ) if File.symlink?( src )
+
+  if dest == path
+    puts "#{src} already links to #{dest}"
+
   else
-    puts "sublime not installed, can not link user directory"
+    print "link #{src} to #{dest}? [ynaq] "
+    case $stdin.gets.chomp
+    when 'y'
+      FileUtils.rm_rf( src )
+      File.symlink( dest, src )
+    when 'q'
+      exit 1
+    else
+      puts "skipping #{src}"
+    end
   end
 end
 
