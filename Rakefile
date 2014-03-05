@@ -32,6 +32,8 @@ task :install do
     ifile = File.new( f[ 0 ] )
     ofile = file_name( f[ 1 ] )
 
+    FileUtils.mkdir_p( File.dirname( ofile ) )
+
     if opts[ :link ] == false || ifile.path.end_with?( '.erb' )
       install_file( ifile, ofile )
     else
