@@ -23,7 +23,7 @@ task :install do
     [ 'ackrc', '~/.ackrc' ],
     [ 'irbrc', '~/.irbrc' ],
     [ 'hgrc', '~/.hgrc' ],
-    [ 'dinfuehr.plugin.zsh', "~/.oh-my-zsh/custom/plugins/dinfuehr/dinfuehr.plugin.zsh" ]
+    [ 'dinfuehr.plugin.zsh', '~/.oh-my-zsh/custom/plugins/dinfuehr/dinfuehr.plugin.zsh' ]
   ]
 
   files.each do |f|
