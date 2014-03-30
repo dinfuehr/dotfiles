@@ -1,6 +1,7 @@
 require 'rake'
 require 'erb'
 require 'fileutils'
+require 'tempfile'
 
 desc "install the dot files into user's home directory"
 task :install do
@@ -128,10 +129,15 @@ def file_content( file )
 end
 
 def path_tool( cmd )
-  path = `which #{cmd}`.strip
+  f = Tempfile.new( 'path_tool' )
+
+  system( "which #{cmd} &>> #{f.path}" )
   return nil unless $?.exitstatus == 0
 
-  path
+  path = IO.read( f.path ).strip
+
+  f.unlink
+  return path
 end
 
 def save_file( file, content )
