@@ -14,6 +14,7 @@ status.ignored = black bold
 color=
 progress=
 pager=
+rebase=
 
 [pager]
 pager = LESS='FSRX' less

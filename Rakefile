@@ -131,12 +131,14 @@ end
 def path_tool( cmd )
   f = Tempfile.new( 'path_tool' )
 
-  system( "which #{cmd} &>> #{f.path}" )
+  system( "which #{cmd} >> #{f.path} 2>&1" )
   return nil unless $?.exitstatus == 0
 
   path = IO.read( f.path ).strip
 
+  f.close
   f.unlink
+
   return path
 end
 
