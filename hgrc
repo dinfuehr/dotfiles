@@ -15,6 +15,7 @@ color=
 progress=
 pager=
 rebase=
+purge=
 
 [pager]
 pager = LESS='FSRX' less
