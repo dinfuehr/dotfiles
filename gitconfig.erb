@@ -3,14 +3,9 @@
   email = dominik.infuehr@gmail.com
 
 [alias]
-  undo = reset --soft HEAD^
   st = status
   ci = commit -v
   co = checkout
-  prune-all = !git remote | xargs -n 1 git remote prune
-  record = !git add -p && git ci
-  amend-record = !git add -p && git ci --amend
-  update-master = !git checkout master && git pull -r
   lol = log --graph --decorate --pretty=oneline --abbrev-commit
   lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
   hist = log --graph --decorate --pretty=format:\"%h %ad | %s%d [%an]\" --abbrev-commit --date=short
