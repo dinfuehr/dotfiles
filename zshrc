@@ -9,6 +9,12 @@ fi
 
 unsetopt correct_all
 
+# add rbenv to path
+if [ -d ~/.rbenv ]; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
+fi
+
 # allow faster opening of directories in ~/code
 c() { cd ~/code/$1; }
 _c() { _files -W ~/code -/; }
