@@ -3,3 +3,8 @@
 *~
 *.un~
 .*.swp
+
+# Intellij
+.idea/
+*.iml
+*.iws
