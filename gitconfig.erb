@@ -12,10 +12,13 @@
 
 [color]
   ui = true
-<% vim = path_tool 'vim'; if vim %>
+
 [core]
+<% vim = path_tool 'vim'; if vim %>
 	editor = <%= vim %>
 <% end %>
+	excludesfile = ~/.gitignore
+
 [push]
 	default = current
 
