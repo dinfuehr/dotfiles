@@ -9,12 +9,6 @@ fi
 
 unsetopt correct_all
 
-# add rbenv to path
-if [ -d ~/.rbenv ]; then
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  eval "$(rbenv init -)"
-fi
-
 # allow faster opening of directories in ~/code
 c() { cd ~/code/$1; }
 _c() { _files -W ~/code -/; }
@@ -36,8 +30,16 @@ function server() {
   python -m SimpleHTTPServer "$port"
 }
 
+# add homebrew to path
 if [ "$(uname)"=="Darwin" ] && [ -d /usr/local/bin ]; then
   export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+fi
+
+# add rbenv to path
+# IMPORTANT: add path after adding homebrew
+if [ -d ~/.rbenv ]; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
 fi
 
 # allow machine-specific configuration in ~/.zshrc_local
