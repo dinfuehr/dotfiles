@@ -109,7 +109,7 @@ def file_content(file, opts={})
 end
 
 def save_file(file, content)
-  File.open(file.realpath, 'w') do |f|
+  File.open(file, 'w') do |f|
     f.write content
   end
 end
