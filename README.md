@@ -7,7 +7,7 @@ You need `zsh` and `git`. These tools are required by the installation script.
 
 ```sh
 cd ~/code/
-git clone git@infuehr.eu:dotfiles
+git clone git@github.com:dinfuehr/dotfiles.git
 
 rake install
 ```
