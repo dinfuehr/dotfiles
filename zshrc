@@ -42,6 +42,12 @@ if [ -d ~/.rbenv ]; then
   eval "$(rbenv init -)"
 fi
 
+# add jenv to path if it exists
+if [ -d ~/.jenv ]; then
+  export PATH="$HOME/.jenv/bin:$PATH"
+  eval "$(jenv init -)"
+fi
+
 # allow machine-specific configuration in ~/.zshrc_local
 ZSH_LOCAL=~/.zshrc_local
 
