@@ -31,6 +31,12 @@ HISTFILE=~/.zsh_history
 bindkey '^[[A' up-line-or-search
 bindkey '^[[B' down-line-or-search
 
+# use ls with colors
+alias ls='ls --color=auto'
+
+# add ll
+alias ll='ls -la'
+
 # add pbcopy/pbpaste on linux
 if [[ $(uname) == Linux ]]; then
   alias pbcopy='xclip -selection clipboard'
