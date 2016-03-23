@@ -16,6 +16,7 @@ progress=
 pager=
 rebase=
 purge=
+hgext.fetch=
 
 [pager]
 pager = LESS='FSRX' less
