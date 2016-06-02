@@ -67,6 +67,9 @@ if [ -d ~/.jenv ]; then
   eval "$(jenv init -)"
 fi
 
+# add ~/bin to PATH
+export PATH=~/bin:$PATH
+
 # allow machine-specific configuration in ~/.zshrc_local
 ZSH_LOCAL=~/.zshrc_local
 
