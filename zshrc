@@ -67,6 +67,12 @@ if [ -d ~/.jenv ]; then
   eval "$(jenv init -)"
 fi
 
+# source rustup if it exists
+if [ -f ~/.cargo/env ]; then
+  source $HOME/.cargo/env
+fi
+
+
 # add ~/bin to PATH
 export PATH=~/bin:$PATH
 
