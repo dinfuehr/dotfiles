@@ -70,6 +70,12 @@ fi
 # add ~/bin to PATH
 export PATH=~/bin:$PATH
 
+if ls --color -d . &>/dev/null 2>&1; then
+  alias ls='ls --color=auto'
+else
+  alias ls='ls -G'
+fi
+
 # allow machine-specific configuration in ~/.zshrc_local
 ZSH_LOCAL=~/.zshrc_local
 
