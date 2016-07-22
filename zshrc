@@ -19,17 +19,22 @@ h() { cd ~/$1; }
 _h() { _files -W ~/ -/; }
 compdef _h h
 
-# Ctrl-R should do backward-search in history
-bindkey "^R" history-incremental-search-backward
-
 # set up history
 HISTSIZE=100000
 SAVEHIST=100000
 HISTFILE=~/.zsh_history
+#
+# Ctrl-R should do backward-search in history
+bindkey "^R" history-incremental-search-backward
 
 # enable search for arrow up/down
 bindkey '^[[A' up-line-or-search
 bindkey '^[[B' down-line-or-search
+
+# Ctrl-U by default deletes whole line, make it behave
+# like bash so that it only deletes the characters up
+# to the cursor
+bindkey \^U backward-kill-line
 
 # add pbcopy/pbpaste on linux
 if [[ $(uname) == Linux ]]; then
