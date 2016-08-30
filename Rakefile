@@ -32,6 +32,7 @@ task :install do
     { src: 'irbrc', dest: '~/.irbrc' },
     { src: 'hgrc', dest: '~/.hgrc' },
     { src: 'tmux.conf', dest: '~/.tmux.conf' },
+    { src: 'gdbinit', dest: '~/.gdbinit' },
   ].map { |f| InstallFile.new(f) }
 
   files.each do |f|
