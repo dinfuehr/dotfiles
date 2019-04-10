@@ -87,6 +87,12 @@ else
   alias ls='ls -G'
 fi
 
+# use nvim instead
+alias vi="nvim"
+alias vim="nvim"
+alias vimdiff="nvim -d"
+export EDITOR=nvim
+
 # allow machine-specific configuration in ~/.zshrc_local
 ZSH_LOCAL=~/.zshrc_local
 
