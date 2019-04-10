@@ -33,6 +33,7 @@ task :install do
     { src: 'hgrc', dest: '~/.hgrc' },
     { src: 'tmux.conf', dest: '~/.tmux.conf' },
     { src: 'gdbinit', dest: '~/.gdbinit' },
+    { src: 'init.vim', dest: '~/.config/nvim/init.vim' },
   ].map { |f| InstallFile.new(f) }
 
   files.each do |f|
