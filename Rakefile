@@ -34,6 +34,7 @@ task :install do
     { src: 'tmux.conf', dest: '~/.tmux.conf' },
     { src: 'gdbinit', dest: '~/.gdbinit' },
     { src: 'init.vim', dest: '~/.config/nvim/init.vim' },
+    { src: 'fish', dest: '~/.config/fish' },
   ].map { |f| InstallFile.new(f) }
 
   files.each do |f|
@@ -70,7 +71,14 @@ def install_link_file(f)
 end
 
 def link_file(f)
-  f.dest.delete if f.dest.exist?
+  if f.dest.exist?
+    if f.dest.directory?
+      FileUtils.rm_rf(f.dest)
+    else
+      f.dest.delete
+     end
+  end
+
   f.dest.make_symlink(f.src.realpath)
 end
 

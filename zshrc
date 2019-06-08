@@ -72,6 +72,11 @@ if [ -d ~/.jenv ]; then
   eval "$(jenv init -)"
 fi
 
+# add depot_tools to path if it exists
+if [ -d ~/code/depot_tools ]; then
+  export PATH="$PATH:$HOME/code/depot_tools"
+fi
+
 # source rustup if it exists
 if [ -f ~/.cargo/env ]; then
   source $HOME/.cargo/env
