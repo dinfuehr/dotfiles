@@ -98,6 +98,20 @@ alias vim="nvim"
 alias vimdiff="nvim -d"
 export EDITOR=nvim
 
+# some v8 shortcuts
+alias gm=$HOME/v8/v8/tools/dev/gm.py
+
+v8()
+{
+  cd $HOME/v8/v8
+}
+
+cr()
+{
+  cd $HOME/chromium/src
+}
+
+
 # allow machine-specific configuration in ~/.zshrc_local
 ZSH_LOCAL=~/.zshrc_local
 
