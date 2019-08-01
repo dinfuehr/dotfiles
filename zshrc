@@ -111,6 +111,8 @@ cr()
   cd $HOME/chromium/src
 }
 
+# allow ctrl+e in tmux
+bindkey -e
 
 # allow machine-specific configuration in ~/.zshrc_local
 ZSH_LOCAL=~/.zshrc_local
