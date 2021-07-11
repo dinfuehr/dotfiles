@@ -99,12 +99,8 @@ alias vimdiff="nvim -d"
 export EDITOR=nvim
 
 # some v8 shortcuts
-alias gm=$HOME/v8/v8/tools/dev/gm.py
-
-v8()
-{
-  cd $HOME/v8/v8
-}
+export V8=$HOME/v8v/v8
+alias gm=$V8/tools/dev/gm.py
 
 cr()
 {
