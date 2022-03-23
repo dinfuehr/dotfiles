@@ -54,8 +54,8 @@ function server() {
 }
 
 # add homebrew to path
-if [ "$(uname)"=="Darwin" ] && [ -d /usr/local/bin ]; then
-  export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+if [ "$(uname)"=="Darwin" ] && [ -d /opt/homebrew/bin ]; then
+  export PATH=/opt/homebrew/bin:$PATH
 fi
 
 # add rbenv to path
