@@ -101,6 +101,11 @@ export EDITOR=nvim
 export V8=$HOME/v8/v8
 alias gm=$V8/tools/dev/gm.py
 
+v8()
+{
+  cd $V8
+}
+
 cr()
 {
   cd $HOME/chromium/src
