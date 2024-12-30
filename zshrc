@@ -82,8 +82,11 @@ if [ -f ~/.cargo/env ]; then
 fi
 
 
-# add ~/bin to PATH
-export PATH=~/bin:$PATH
+# Add user-specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
 
 if ls --color -d . &>/dev/null 2>&1; then
   alias ls='ls --color=auto'
