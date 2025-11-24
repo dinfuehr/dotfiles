@@ -58,19 +58,6 @@ if [ "$(uname)"=="Darwin" ] && [ -d /opt/homebrew/bin ]; then
   export PATH=/opt/homebrew/bin:$PATH
 fi
 
-# add rbenv to path
-# IMPORTANT: add path after adding homebrew
-if [ -d ~/.rbenv ]; then
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  eval "$(rbenv init -)"
-fi
-
-# add jenv to path if it exists
-if [ -d ~/.jenv ]; then
-  export PATH="$HOME/.jenv/bin:$PATH"
-  eval "$(jenv init -)"
-fi
-
 # add depot_tools to path if it exists
 if [ -d ~/code/depot_tools ]; then
   export PATH="$PATH:$HOME/code/depot_tools"
@@ -104,14 +91,21 @@ export EDITOR=nvim
 export V8=$HOME/v8/v8
 alias gm=$V8/tools/dev/gm.py
 
-v8()
+cd_v8()
 {
   cd $V8
 }
 
-cr()
+cd_cr()
 {
   cd $HOME/chromium/src
+}
+
+# Convenient way to attach to same tmux session.
+work() {
+  # If tmx2 exists use it, otherwise echo tmux.
+  local cmd=$(command -v tmx2 || echo tmux)
+  $cmd new-session -A -s "${1:-work}"
 }
 
 # allow ctrl+e in tmux
