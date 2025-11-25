@@ -69,19 +69,13 @@ if [ -f ~/.cargo/env ]; then
 fi
 
 
-# Add user-specific environment
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+# Add user-specific environment.
+if ! [[ "$PATH" =~ "$HOME/.local/bin:" ]]; then
+    PATH="$HOME/.local/bin:$PATH"
 fi
 export PATH
 
-if ls --color -d . &>/dev/null 2>&1; then
-  alias ls='ls --color=auto'
-else
-  alias ls='ls -G'
-fi
-
-# use nvim instead
+# Use nvim instead.
 alias vi="nvim"
 alias vim="nvim"
 alias vimdiff="nvim -d"
@@ -110,8 +104,14 @@ work() {
 
 # Use eza for ls if available
 if command -v eza &> /dev/null; then
-    alias ls=eza
+  alias ls=eza
+else
+  alias ls='ls --color=auto'
 fi
+
+# Load NVM
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 # allow ctrl+e in tmux
 bindkey -e
