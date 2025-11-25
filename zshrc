@@ -108,6 +108,11 @@ work() {
   $cmd new-session -A -s "${1:-work}"
 }
 
+# Use eza for ls if available
+if command -v eza &> /dev/null; then
+    alias ls=eza
+fi
+
 # allow ctrl+e in tmux
 bindkey -e
 
