@@ -111,6 +111,9 @@ work() {
 # allow ctrl+e in tmux
 bindkey -e
 
+# Disable coredumps by default.
+ulimit -c 0
+
 # allow machine-specific configuration in ~/.zshrc_local
 ZSH_LOCAL=~/.zshrc_local
 
