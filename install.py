@@ -18,6 +18,7 @@ FILES = [
     {"src": "zshrc", "dest": "~/.zshrc", "link": False},
     {"src": "zsh", "dest": "~/.zsh"},
     {"src": "gitconfig.j2", "dest": "~/.gitconfig", "template": True},
+    {"src": "gitconfig.local.j2", "dest": "~/.gitconfig.local", "template": True},
     {"src": "gitignore", "dest": "~/.gitignore"},
     {"src": "ackrc", "dest": "~/.ackrc"},
     {"src": "irbrc", "dest": "~/.irbrc"},
@@ -77,8 +78,9 @@ def link_file(src, dest):
     dest.symlink_to(src.resolve())
 
 
-def install_copy(src_name, dest, template=False, dry=False):
+def install_copy(src_name, dest, template=False, dry=False, skip=False):
     new_content = render_template(src_name) if template else file_content(DOTFILES_DIR / src_name)
+
     if dest.exists():
         old_content = file_content(dest)
         if new_content == old_content:
@@ -91,6 +93,9 @@ def install_copy(src_name, dest, template=False, dry=False):
             tofile=src_name,
         )
         print("".join(diff), end="")
+        if skip:
+            print(f"skip {dest} (use --include-gitconfig-local to overwrite)")
+            return
         if dry:
             return
         print(f"overwrite {dest}")
@@ -105,6 +110,7 @@ def main():
     parser = argparse.ArgumentParser(description="Install dotfiles")
     parser.add_argument("--force", action="store_true", help="apply changes (default is dry run)")
     parser.add_argument("--skip-gitconfig", action="store_true", help="skip gitconfig installation")
+    parser.add_argument("--include-gitconfig-local", action="store_true", help="overwrite gitconfig.local even if it exists")
     args = parser.parse_args()
 
     dry = not args.force
@@ -120,8 +126,11 @@ def main():
         link = entry.get("link", True)
         template = entry.get("template", False)
 
+        # Special handling for gitconfig.local: only update if file doesn't exist or --include-gitconfig-local is set
+        skip_gitconfig_local = (src_name == "gitconfig.local.j2" and dest.exists() and not args.include_gitconfig_local)
+
         if not link or template:
-            install_copy(src_name, dest, template=template, dry=dry)
+            install_copy(src_name, dest, template=template, dry=dry, skip=skip_gitconfig_local)
         else:
             install_link(DOTFILES_DIR / src_name, dest, dry=dry)
 
