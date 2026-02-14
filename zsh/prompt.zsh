@@ -1,13 +1,45 @@
 # Custom prompt based on redhat theme.
-# In a git repo whose folder name is a single digit (0-9),
-# show parent/digit instead of just the digit.
-_prompt_dir() {
+#
+# Directory display (cached, updated on directory change):
+#   git repo with single-digit name:  parent:digit  (e.g. ~/code/some_project/0 => some_project:0)
+#   gclient repo level:               project:checkout  (e.g. ~/v8s/0/v8 => v8:0)
+#   otherwise:                        basename
+# Walk up from $PWD looking for a .gclient file under $HOME.
+# Sets _PROMPT_DIR to project:checkout (e.g. v8:0) when one level below root.
+_prompt_gclient() {
+  local d="$PWD"
+  while [[ "$d" == "$HOME"* ]]; do
+    if [[ -f "$d/.gclient" ]]; then
+      if [[ "${PWD:h}" == "$d" ]]; then
+        _PROMPT_DIR="${PWD##*/}:${d:t}"
+        return 0
+      fi
+      return 1
+    fi
+    d="${d:h}"
+  done
+  return 1
+}
+
+# Git repo with single-digit name: show parent:digit (e.g. some_project:0).
+_prompt_git() {
   local dir=${PWD##*/}
   if [[ $dir == [0-9] ]] && git rev-parse --is-inside-work-tree &>/dev/null; then
-    echo "${PWD:h:t}/$dir"
-  else
-    echo "$dir"
+    _PROMPT_DIR="${PWD:h:t}:$dir"
+    return 0
   fi
+  return 1
 }
+
+_precmd_prompt() {
+  [[ "$PWD" == "$_PROMPT_LAST_PWD" ]] && return
+  _PROMPT_LAST_PWD="$PWD"
+
+  _prompt_gclient || _prompt_git || _PROMPT_DIR="${PWD##*/}"
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd _precmd_prompt
+
 setopt PROMPT_SUBST
-PROMPT='[%n@%m $(_prompt_dir)]$ '
+PROMPT='[%n@%m ${_PROMPT_DIR}]$ '
