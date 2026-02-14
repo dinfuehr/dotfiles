@@ -42,4 +42,12 @@ autoload -Uz add-zsh-hook
 add-zsh-hook precmd _precmd_prompt
 
 setopt PROMPT_SUBST
-PROMPT='[%n@%m ${_PROMPT_DIR}]$ '
+
+# Solarized Dark colors (RGB)
+local COLOR_BLUE='%F{#268bd2}'      # blue
+local COLOR_GREEN='%F{#859900}'     # green
+local COLOR_YELLOW='%F{#b58900}'    # yellow
+local COLOR_BASE0='%F{#839496}'     # primary content
+local COLOR_RESET='%f'
+
+PROMPT="${COLOR_BASE0}[${COLOR_BLUE}%n${COLOR_BASE0}@${COLOR_GREEN}%m ${COLOR_YELLOW}\${_PROMPT_DIR}${COLOR_BASE0}]$ ${COLOR_RESET}"
