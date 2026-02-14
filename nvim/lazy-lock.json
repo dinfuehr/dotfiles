@@ -1,0 +1,8 @@
+{
+  "NeoSolarized": { "branch": "master", "commit": "b94b1a9ad51e2de015266f10fdc6e142f97bd617" },
+  "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
+  "neovim-fuzzy": { "branch": "master", "commit": "16ee769bb459e8173a2ef9f515905c8f879ff7c6" },
+  "vim-airline": { "branch": "master", "commit": "b03fdc542f5155b54959102a2aecaf6c792dce01" },
+  "vim-airline-themes": { "branch": "master", "commit": "77aab8c6cf7179ddb8a05741da7e358a86b2c3ab" },
+  "vim-plugin-minibufexpl": { "branch": "master", "commit": "349a9fbb7a9da13d029b6a7ed8c8a5e9c048c4ec" }
+}
