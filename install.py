@@ -24,7 +24,7 @@ FILES = [
     {"src": "hgrc", "dest": "~/.hgrc"},
     {"src": "tmux.conf", "dest": "~/.tmux.conf"},
     {"src": "gdbinit", "dest": "~/.gdbinit"},
-    {"src": "init.vim", "dest": "~/.config/nvim/init.vim"},
+    {"src": "nvim", "dest": "~/.config/nvim"},
     {"src": "fish", "dest": "~/.config/fish"},
 ]
 
