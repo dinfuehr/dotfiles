@@ -104,13 +104,17 @@ def install_copy(src_name, dest, template=False, dry=False):
 def main():
     parser = argparse.ArgumentParser(description="Install dotfiles")
     parser.add_argument("--force", action="store_true", help="apply changes (default is dry run)")
+    parser.add_argument("--skip-gitconfig", action="store_true", help="skip gitconfig installation")
     args = parser.parse_args()
+
     dry = not args.force
 
     if dry:
         print("dry run (use --force to apply changes)")
 
     for entry in FILES:
+        if args.skip_gitconfig and entry["src"].startswith("gitconfig"):
+            continue
         src_name = entry["src"]
         dest = Path(entry["dest"].replace("~", str(Path.home())))
         link = entry.get("link", True)
