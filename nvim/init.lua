@@ -37,11 +37,12 @@ vim.keymap.set('n', '<leader><space>', ':noh<cr>')
 -- space means :
 vim.keymap.set('n', '<space>', ':')
 
--- Dora LSP configuration
-vim.lsp.config['dorals'] = {
-  cmd = { '/home/dominik/.dora/bin/dora-language-server' },
-  filetypes = { 'dora' },
-  root_markers = { '.git' }
-}
-
-vim.lsp.enable('dorals')
+-- Dora LSP configuration (requires Neovim 0.11+)
+if vim.fn.has('nvim-0.11') == 1 then
+  vim.lsp.config['dorals'] = {
+    cmd = { '/home/dominik/.dora/bin/dora-language-server' },
+    filetypes = { 'dora' },
+    root_markers = { '.git' }
+  }
+  vim.lsp.enable('dorals')
+end
