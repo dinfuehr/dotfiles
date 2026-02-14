@@ -16,7 +16,12 @@ rake install
 
 **Fedora:**
 ```sh
-sudo dnf install neovim xclip tmux git-delta eza zsh-syntax-highlighting
+sudo dnf install neovim xclip tmux git-delta zsh-syntax-highlighting
+```
+
+**eza (Fedora, no package available):**
+```sh
+cargo install eza
 ```
 
 **macOS:**
