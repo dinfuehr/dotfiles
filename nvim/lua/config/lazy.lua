@@ -35,6 +35,17 @@ require("lazy").setup({
     },
   },
 
-  -- Buffer explorer
-  "weynhamz/vim-plugin-minibufexpl",
+  -- Buffer line (tabs)
+  {
+    "akinsho/bufferline.nvim",
+    version = "*",
+    config = function()
+      require("bufferline").setup{
+        options = {
+          show_buffer_icons = false,
+          show_buffer_close_icons = false,
+        },
+      }
+    end,
+  },
 })

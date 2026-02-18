@@ -24,8 +24,8 @@ vim.keymap.set('v', '/', '/\\v')
 vim.keymap.set('n', '<C-p>', ':FuzzyOpen<CR>')
 
 -- switch between buffers with tab and shift-tab
-vim.keymap.set('n', '<tab>', ':bn<CR>')
-vim.keymap.set('n', '<S-tab>', ':bp<CR>')
+vim.keymap.set('n', '<tab>', ':BufferLineCycleNext<CR>')
+vim.keymap.set('n', '<S-tab>', ':BufferLineCyclePrev<CR>')
 
 -- j/k jumps with count work normally, without count use gj/gk
 vim.keymap.set('n', 'j', function() return vim.v.count == 0 and 'gj' or 'j' end, { expr = true, silent = true })
