@@ -35,18 +35,6 @@ require("lazy").setup({
     },
   },
 
-  -- Treesitter (syntax highlighting)
-  -- {
-  --   "nvim-treesitter/nvim-treesitter",
-  --   build = ":TSUpdate",
-  --   config = function()
-  --     require("nvim-treesitter").setup{
-  --       ensure_installed = { "bash", "lua", "python", "c", "rust", "javascript", "vim", "vimdoc", "query" },
-  --       auto_install = true,
-  --     }
-  --   end,
-  -- },
-
   -- File explorer
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -56,11 +44,7 @@ require("lazy").setup({
       "MunifTanjim/nui.nvim",
     },
     config = function()
-      require("neo-tree").setup{
-        default_component_configs = {
-          icon = { enabled = false },
-        },
-      }
+      require("neo-tree").setup{}
     end,
   },
 
@@ -76,13 +60,9 @@ require("lazy").setup({
   {
     "akinsho/bufferline.nvim",
     version = "*",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      require("bufferline").setup{
-        options = {
-          show_buffer_icons = false,
-          show_buffer_close_icons = false,
-        },
-      }
+      require("bufferline").setup{}
     end,
   },
 })

@@ -34,6 +34,17 @@ brew install neovim tmux git-delta eza fzy zsh-syntax-highlighting
 sudo apt install neovim xclip tmux git-delta eza fzy zsh-syntax-highlighting
 ```
 
+**Nerd Font (required for Neovim icons):**
+```sh
+mkdir -p ~/.local/share/fonts
+cd ~/.local/share/fonts
+curl -fLO "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/DejaVuSansMono.tar.xz"
+tar xf DejaVuSansMono.tar.xz
+rm DejaVuSansMono.tar.xz
+fc-cache -fv ~/.local/share/fonts
+```
+Restart the terminal, then set your terminal font to "DejaVuSansM Nerd Font Mono".
+
 **fzy (Fedora only, build from source):**
 ```sh
 git clone git@github.com:jhawthorn/fzy.git
