@@ -35,6 +35,43 @@ require("lazy").setup({
     },
   },
 
+  -- Treesitter (syntax highlighting)
+  -- {
+  --   "nvim-treesitter/nvim-treesitter",
+  --   build = ":TSUpdate",
+  --   config = function()
+  --     require("nvim-treesitter").setup{
+  --       ensure_installed = { "bash", "lua", "python", "c", "rust", "javascript", "vim", "vimdoc", "query" },
+  --       auto_install = true,
+  --     }
+  --   end,
+  -- },
+
+  -- File explorer
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+    },
+    config = function()
+      require("neo-tree").setup{
+        default_component_configs = {
+          icon = { enabled = false },
+        },
+      }
+    end,
+  },
+
+  -- Git signs (gutter indicators)
+  {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("gitsigns").setup()
+    end,
+  },
+
   -- Buffer line (tabs)
   {
     "akinsho/bufferline.nvim",

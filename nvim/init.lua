@@ -23,6 +23,9 @@ vim.keymap.set('v', '/', '/\\v')
 -- use ctrl-p to load files
 vim.keymap.set('n', '<C-p>', ':FuzzyOpen<CR>')
 
+-- toggle file explorer
+vim.keymap.set('n', '<C-n>', ':Neotree toggle<CR>')
+
 -- switch between buffers with tab and shift-tab
 vim.keymap.set('n', '<tab>', ':BufferLineCycleNext<CR>')
 vim.keymap.set('n', '<S-tab>', ':BufferLineCyclePrev<CR>')
