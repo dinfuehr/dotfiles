@@ -56,6 +56,9 @@ require("lazy").setup({
     end,
   },
 
+  -- Fuzzy finder (LSP symbols, grep, files, etc.)
+  { "ibhagwan/fzf-lua" },
+
   -- Dora language support
   "dinfuehr/dora.nvim",
 
