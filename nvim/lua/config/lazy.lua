@@ -56,6 +56,9 @@ require("lazy").setup({
     end,
   },
 
+  -- Dora language support
+  "dinfuehr/dora.nvim",
+
   -- Buffer line (tabs)
   {
     "akinsho/bufferline.nvim",
