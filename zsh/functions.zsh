@@ -19,7 +19,13 @@ alias gm=tools/dev/gm.py
 
 cd_v8()
 {
-  cd $V8
+  if [[ -n "$1" ]]; then
+    cd ~/v8s/$1/v8
+  elif [[ -d ~/v8s/0/v8 ]]; then
+    cd ~/v8s/0/v8
+  else
+    cd ~/v8/v8
+  fi
 }
 
 cd_cr()
