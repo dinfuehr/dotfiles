@@ -10,7 +10,8 @@ alias vim="nvim"
 alias vimdiff="nvim -d"
 export EDITOR=nvim
 
-alias cc="codex --yolo"
+alias cx="codex --yolo"
+alias cl="claude --dangerously-skip-permissions"
 
 # Use eza for ls if available
 if command -v eza &> /dev/null; then
