@@ -11,7 +11,12 @@ _prompt_gclient() {
   while [[ "$d" == "$HOME"* ]]; do
     if [[ -f "$d/.gclient" ]]; then
       if [[ "${PWD:h}" == "$d" ]]; then
-        _PROMPT_DIR="${PWD##*/}:${d:t}"
+        local checkout="${d:t}"
+        if [[ $checkout == [0-9]## ]]; then
+          _PROMPT_DIR="${PWD##*/}:$checkout"
+        else
+          _PROMPT_DIR="$checkout/${PWD##*/}"
+        fi
         return 0
       fi
       return 1
