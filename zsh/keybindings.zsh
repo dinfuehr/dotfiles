@@ -1,6 +1,3 @@
-# Ctrl-R should do backward-search in history
-bindkey "^R" history-incremental-search-backward
-
 # enable search for arrow up/down
 bindkey '^[[A' up-line-or-search
 bindkey '^[[B' down-line-or-search
