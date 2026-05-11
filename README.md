@@ -16,7 +16,7 @@ rake install
 
 **Fedora:**
 ```sh
-sudo dnf install neovim xclip tmux git-delta zsh-syntax-highlighting fzf
+sudo dnf install neovim xclip tmux git-delta zsh-syntax-highlighting fzf fd-find
 ```
 
 **eza (Fedora, no package available):**
@@ -26,12 +26,12 @@ cargo install eza
 
 **macOS:**
 ```sh
-brew install neovim tmux git-delta eza fzy fzf zsh-syntax-highlighting
+brew install neovim tmux git-delta eza fzy fzf fd zsh-syntax-highlighting
 ```
 
 **Ubuntu:**
 ```sh
-sudo apt install neovim xclip tmux git-delta eza fzy fzf zsh-syntax-highlighting
+sudo apt install neovim xclip tmux git-delta eza fzy fzf fd-find zsh-syntax-highlighting
 ```
 
 **Nerd Font (required for Neovim icons):**
