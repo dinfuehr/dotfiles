@@ -12,6 +12,7 @@ export EDITOR=nvim
 
 alias cx="codex --yolo"
 alias cl="claude --dangerously-skip-permissions"
+alias jk="jetski-cli --dangerously-skip-permissions"
 
 # Use eza for ls if available
 if command -v eza &> /dev/null; then
