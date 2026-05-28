@@ -39,3 +39,9 @@ work() {
   local cmd=$(command -v tmx2 || echo tmux)
   $cmd new-session -A -s "${1:-work}"
 }
+
+# Attach to a named tmux session, creating it if it doesn't exist yet.
+tm() {
+  local cmd=$(command -v tmx2 || echo tmux)
+  $cmd new-session -A -s "$1"
+}
