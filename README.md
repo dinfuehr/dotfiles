@@ -16,7 +16,7 @@ rake install
 
 **Fedora:**
 ```sh
-sudo dnf install neovim xclip tmux git-delta zsh-syntax-highlighting fzf fd-find
+sudo dnf install neovim xclip tmux git-delta difftastic zsh-syntax-highlighting fzf fd-find
 ```
 
 **eza (Fedora, no package available):**
@@ -26,7 +26,7 @@ cargo install eza
 
 **macOS:**
 ```sh
-brew install neovim tmux git-delta eza fzy fzf fd zsh-syntax-highlighting
+brew install neovim tmux git-delta difftastic eza fzy fzf fd zsh-syntax-highlighting
 ```
 
 **Ubuntu:**
