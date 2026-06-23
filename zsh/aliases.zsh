@@ -12,7 +12,11 @@ export EDITOR=nvim
 
 alias cx="codex --yolo"
 alias cl="claude --dangerously-skip-permissions"
-alias jk="jetski-cli --dangerously-skip-permissions"
+if [[ $(uname) == Darwin ]]; then
+  alias jk="jetski --dangerously-skip-permissions"
+else
+  alias jk="jetski-cli --dangerously-skip-permissions"
+fi
 
 # Use eza for ls if available
 if command -v eza &> /dev/null; then
