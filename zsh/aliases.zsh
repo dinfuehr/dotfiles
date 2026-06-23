@@ -13,7 +13,7 @@ export EDITOR=nvim
 alias cx="codex --yolo"
 alias cl="claude --dangerously-skip-permissions"
 if [[ $(uname) == Darwin ]]; then
-  alias jk="jetski --dangerously-skip-permissions"
+  alias jk="/usr/local/bin/jetski --dangerously-skip-permissions"
 else
   alias jk="jetski-cli --dangerously-skip-permissions"
 fi
